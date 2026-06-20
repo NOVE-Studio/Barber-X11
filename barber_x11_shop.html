@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barber X11 Shop - Nouakchott</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --jet-black: #0E0E0E;
+            --charcoal: #1A1A1A;
+            --wood-brown: #8B5A2B;
+            --warm-gold: #D4AF37;
+            --bright-gold: #F0C75E;
+            --cream: #F5F1E8;
+            --light-text: #B8B3A8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--cream);
+            line-height: 1.8;
+            background-color: var(--jet-black);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(14, 14, 14, 0.97);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--warm-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(14, 14, 14, 0.9) 0%, rgba(26, 26, 26, 0.85) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="wood" x="0" y="0" width="120" height="20" patternUnits="userSpaceOnUse"><rect width="120" height="20" fill="rgba(139,90,43,0.04)"/></pattern></defs><rect width="1200" height="600" fill="url(%23wood)"/></svg>');
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+            color: var(--bright-gold);
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+            text-transform: uppercase;
+        }
+
+        .hero .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--light-text);
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--warm-gold);
+            color: var(--jet-black);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: var(--bright-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--bright-gold);
+            position: relative;
+            padding-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--warm-gold), transparent);
+        }
+
+        /* About Section */
+        #about {
+            background: var(--charcoal);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            color: var(--bright-gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .about-text p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--wood-brown) 0%, var(--charcoal) 100%);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--cream);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .about-image svg {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .about-image p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--bright-gold);
+            margin: 0;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services Section */
+        #services {
+            background: linear-gradient(180deg, var(--jet-black) 0%, var(--charcoal) 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--charcoal);
+            border-radius: 8px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            border-top: 3px solid var(--warm-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--bright-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Social Proof Section */
+        #social-proof {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--jet-black) 100%);
+            color: var(--cream);
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .social-proof-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-proof-content .section-title {
+            color: var(--bright-gold);
+        }
+
+        .rating-stars {
+            font-size: 2.5rem;
+            color: var(--warm-gold);
+            margin: 1.5rem 0;
+            letter-spacing: 4px;
+        }
+
+        .follower-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin: 1rem 0;
+            color: var(--bright-gold);
+        }
+
+        .social-proof-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+
+        /* Why Choose Us */
+        #why-us {
+            background: var(--charcoal);
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .why-us-item {
+            background: rgba(212, 175, 55, 0.05);
+            border-right: 3px solid var(--warm-gold);
+            padding: 1.8rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .why-us-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .why-us-item h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--bright-gold);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .why-us-item p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* Hours & Location Section */
+        #location {
+            background: var(--jet-black);
+        }
+
+        .location-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hours-info {
+            background: var(--charcoal);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .hours-info h3,
+        .location-info h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            color: var(--bright-gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hours-highlight {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.2rem;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hours-highlight .big-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--bright-gold);
+            letter-spacing: 1px;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hours-table td {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--light-text);
+        }
+
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: var(--bright-gold);
+            width: 40%;
+        }
+
+        .location-info {
+            background: var(--charcoal);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .location-info p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .location-map {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 1.5rem;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--jet-black) 100%);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-content .section-title {
+            color: var(--bright-gold);
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-method {
+            background: rgba(212, 175, 55, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .contact-method h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--warm-gold);
+        }
+
+        .contact-method a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-method a:hover {
+            color: var(--bright-gold);
+        }
+
+        .whatsapp-cta {
+            display: inline-block;
+            background: var(--warm-gold);
+            color: var(--jet-black);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+        }
+
+        .whatsapp-cta:hover {
+            background: var(--bright-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-accent {
+            color: var(--bright-gold);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                margin-top: 50px;
+                min-height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            .hero .subtitle {
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content,
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid,
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+
+            .follower-count {
+                font-size: 2.5rem;
+            }
+
+            .location-map {
+                height: 250px;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem 1rem;
+            }
+
+            section {
+                padding: 2.5rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .about-text h3,
+            .hours-info h3,
+            .location-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .about-text p,
+            .location-info p {
+                font-size: 0.95rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-icon {
+                font-size: 2.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .follower-count {
+                font-size: 2rem;
+            }
+
+            .location-map {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#location">Horaires</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>X11</h1>
+            <p class="tagline">Barber X11 Shop</p>
+            <p class="subtitle">Précision. Style. Excellence.<br>Le barbershop moderne de Nouakchott, ouvert jusqu'à 01h00.</p>
+            <a href="https://wa.me/22246184619?text=Bonjour%20Barber%20X11%2C%20je%20souhaite%20r%C3%A9server%20un%20rendez-vous" class="cta-button" target="_blank">Réserver sur WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">À Propos</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Le Barbershop Moderne de Nouakchott</h3>
+                <p>Barber X11 Shop offre une expérience de coiffure haut de gamme, alliant techniques modernes et savoir-faire artisanal dans un cadre élégant en bois et noir.</p>
+                <p>Nos fauteuils en cuir premium, notre éclairage doré ambiant et notre attention aux détails font de chaque visite un moment de précision et de style.</p>
+                <p>Ouvert jusqu'à 01h00, nous nous adaptons à votre emploi du temps, où que vous soyez à Nouakchott.</p>
+            </div>
+            <div class="about-image">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="25" r="12" fill="currentColor" opacity="0.9"/>
+                    <path d="M 35 40 L 35 75 Q 35 85 50 85 Q 65 85 65 75 L 65 40 Z" fill="currentColor" opacity="0.9"/>
+                    <line x1="25" y1="45" x2="75" y2="45" stroke="currentColor" stroke-width="3" opacity="0.9"/>
+                </svg>
+                <p>X11 — Précision Garantie</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Nos Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">✂️</span>
+                <h3>Coupe Moderne</h3>
+                <p>Coupes contemporaines et classiques, adaptées à votre style et à la forme de votre visage.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">💈</span>
+                <h3>Dégradé (Fade)</h3>
+                <p>Dégradés précis et nets, réalisés avec des techniques professionnelles de pointe.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🪒</span>
+                <h3>Taille de Barbe</h3>
+                <p>Taille et entretien de barbe sur mesure, pour une allure soignée et raffinée.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🧖</span>
+                <h3>Soins du Visage</h3>
+                <p>Soins relaxants et revitalisants pour homme, pour une peau saine et fraîche.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">👑</span>
+                <h3>Coiffure Traditionnelle</h3>
+                <p>Styles traditionnels et modernes, exécutés avec précision par nos barbiers experts.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">⭐</span>
+                <h3>Forfaits Premium</h3>
+                <p>Forfaits complets combinant coupe, barbe et soins pour une expérience totale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="social-proof">
+        <div class="social-proof-content">
+            <h2 class="section-title">Avis Clients</h2>
+            <div class="rating-stars">★★★★★</div>
+            <div class="follower-count">4.5/5</div>
+            <p class="social-proof-text">Note moyenne de nos clients satisfaits à Nouakchott</p>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us">
+        <h2 class="section-title">Pourquoi Nous Choisir</h2>
+        <div class="why-us-grid">
+            <div class="why-us-item">
+                <h3>🏆 Cadre Premium</h3>
+                <p>Fauteuils en cuir, éclairage doré et design moderne pour une expérience haut de gamme.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>✂️ Barbiers Experts</h3>
+                <p>Une équipe qualifiée maîtrisant les techniques les plus modernes de coupe et de taille.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>🕐 Horaires Flexibles</h3>
+                <p>Ouvert tard, jusqu'à 01h00, pour s'adapter à votre emploi du temps chargé.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>📍 Emplacement Pratique</h3>
+                <p>Situé à Nouakchott, facilement accessible pour tous nos clients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours & Location Section -->
+    <section id="location">
+        <h2 class="section-title">Horaires & Localisation</h2>
+        <div class="location-content">
+            <div class="hours-info">
+                <h3>Horaires d'Ouverture</h3>
+                <div class="hours-highlight">
+                    <div class="big-text">Ouvert · Ferme à 01h00</div>
+                </div>
+                <table class="hours-table">
+                    <tr>
+                        <td>Tous les jours</td>
+                        <td>Jusqu'à 01:00</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="location-info">
+                <h3>Notre Localisation</h3>
+                <p><strong>427F+CQC</strong></p>
+                <p>Nouakchott, Mauritanie</p>
+                <div class="location-map">
+                    <iframe src="https://maps.google.com/maps?q=427F%2BCQC+Nouakchott+Mauritania&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <a href="https://maps.google.com/maps?q=427F%2BCQC+Nouakchott,+Mauritania" target="_blank" style="display:block; text-align:center; margin-top:0.8rem; color:var(--bright-gold); font-weight:600; text-decoration:none;">📍 Voir sur Google Maps</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-content">
+            <h2 class="section-title">Nous Contacter</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Prêt pour une nouvelle coupe ? Réservez dès maintenant</p>
+
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <h4>WhatsApp</h4>
+                    <a href="https://wa.me/22246184619?text=Bonjour%20Barber%20X11%2C%20je%20souhaite%20r%C3%A9server" target="_blank">+222 46 18 46 19</a>
+                </div>
+                <div class="contact-method">
+                    <h4>Téléphone</h4>
+                    <a href="tel:+22246184619">+222 46 18 46 19</a>
+                </div>
+            </div>
+
+            <a href="https://wa.me/22246184619?text=Bonjour%20Barber%20X11%2C%20je%20souhaite%20r%C3%A9server%20un%20rendez-vous" class="whatsapp-cta" target="_blank">Réserver Maintenant</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 <span class="footer-accent">Barber X11 Shop</span> - Nouakchott</p>
+        <p>427F+CQC • Nouakchott • Mauritanie</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(245, 241, 232, 0.5);">Précision. Style. Excellence.</p>
+    </footer>
+
+</body>
+</html>
